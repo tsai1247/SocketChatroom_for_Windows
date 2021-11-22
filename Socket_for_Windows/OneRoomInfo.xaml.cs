@@ -15,6 +15,13 @@ namespace Socket_for_Windows
             InitializeComponent();
         }
 
+        public OneRoomInfo(Address address)
+        {
+            InitializeComponent();
+            IP.Text = address.Host;
+            Port.Text = address.Port;
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 

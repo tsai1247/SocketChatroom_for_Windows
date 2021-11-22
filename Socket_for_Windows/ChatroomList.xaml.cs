@@ -28,9 +28,7 @@ namespace Socket_for_Windows
         {
             Address address = Address.GetRandomPort();
 
-            OneRoomInfo oneRoomInfo = new OneRoomInfo();
-            oneRoomInfo.IP.Text = address.Host;
-            oneRoomInfo.Port.Text = address.Port;
+            OneRoomInfo oneRoomInfo = new OneRoomInfo(address);
             roomList.Children.Add(oneRoomInfo);
             Network.addressList.Add(address);
         }

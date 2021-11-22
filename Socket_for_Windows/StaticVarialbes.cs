@@ -29,7 +29,7 @@ namespace Socket_for_Windows
 
     }
 
-    struct Address
+    public struct Address
     {
         public static Address GetRandomPort(List<Address> list = null)
         {
