@@ -22,5 +22,14 @@ namespace Socket_for_Windows
         {
             InitializeComponent();
         }
+
+        public Message(string nickyName, string curText, string curTime)
+        {
+            InitializeComponent();
+
+            name.Text = nickyName;
+            content.Text = curText;
+            timestamp.Text = curTime;
+        }
     }
 }

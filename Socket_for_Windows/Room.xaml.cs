@@ -25,10 +25,8 @@ namespace Socket_for_Windows
             if (curText.Replace(" ", "").Replace("\n", "").Replace("\r", "").Replace("\t", "") == "") return;
             text_for_send.Text = "";
             
-            Message message = new Message();
-            message.name.Text = User.NickyName;
-            message.content.Text = curText;
-            message.timestamp.Text = DateTime.Now.ToString("t");
+            Message message = new Message(User.NickyName, curText, DateTime.Now.ToString("t"));
+            
             MessageContainer.Children.Add(message);
         }
     }
