@@ -5,8 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Socket_for_Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+    <Grid Background="Black">
+        <WrapPanel x:Name="roomList" Orientation="Vertical">
             
+        </WrapPanel>
+        <Button x:Name="add" Click="add_Click"
+                Content="+" FontSize="30"
+                Width="40" Height="40"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="20"/>
     </Grid>
 </UserControl>

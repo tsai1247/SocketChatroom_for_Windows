@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Socket_for_Windows
 {
@@ -22,5 +13,24 @@ namespace Socket_for_Windows
         {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            string curText = text_for_send.Text;
+            if (curText.Replace(" ", "").Replace("\n", "").Replace("\r", "").Replace("\t", "") == "") return;
+            text_for_send.Text = "";
+            
+            Message message = new Message();
+            message.name.Text = User.NickyName;
+            message.content.Text = curText;
+            message.timestamp.Text = DateTime.Now.ToString("t");
+            MessageContainer.Children.Add(message);
+        }
     }
 }
+

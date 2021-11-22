@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Socket_for_Windows.JoinRoom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Socket_for_Windows"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             >
+    <Grid Background="Gray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock x:Name="script_Host" Text="IP:" Margin="10" FontSize="25"/>
+            <TextBlock x:Name="script_Port" Text="Port:" Margin="10" FontSize="25"/>
+        </WrapPanel>
+        <WrapPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+            <TextBox x:Name="Host" Width="200" Margin="10" FontSize="25"/>
+            <TextBox x:Name="Port" Width="200" Margin="10" FontSize="25"/>
+        </WrapPanel>
+        <Button x:Name="Join" Click="Join_Click"
+                Content="Join" FontSize="22"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="55" Height="55" Margin="10" Grid.Column="2"/>
+    </Grid>
+</UserControl>

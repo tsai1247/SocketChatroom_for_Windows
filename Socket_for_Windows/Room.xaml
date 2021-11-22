@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:Socket_for_Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition MinHeight="50" MaxHeight="150"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0">
+        </WrapPanel>
+
+        <Grid x:Name="SendGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="text_for_send" Text="aaa" FontSize="25" Grid.Column="0"
+                Height="Auto"
+                TextWrapping="Wrap" AcceptsReturn="True"/>
+            <Button x:Name="Send" Content="Send" FontSize="22" Grid.Column="1"
+                Width="70" Height="70" Margin="10" Click="Send_Click"/>
+        </Grid>
     </Grid>
 </UserControl>
