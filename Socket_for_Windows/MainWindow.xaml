@@ -21,6 +21,6 @@
             <local:JoinRoom Grid.Row="0"/>
             <local:ChatroomList Grid.Row="1"/>
         </Grid>
-        <local:Room Grid.Column="1"/>
+        <local:Room x:Name="Room" Grid.Column="1"/>
     </Grid>
 </Window>

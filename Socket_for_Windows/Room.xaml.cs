@@ -25,10 +25,19 @@ namespace Socket_for_Windows
             if (curText.Replace(" ", "").Replace("\n", "").Replace("\r", "").Replace("\t", "") == "") return;
             text_for_send.Text = "";
             
-            Message message = new Message(User.NickyName, curText, DateTime.Now.ToString("t"));
+            AddMessage( new Message( User.NickyName, curText, DateTime.Now));
             
-            MessageContainer.Children.Add(message);
         }
+
+
+        internal static Message AddMessage(Message message)
+        {
+            MessageShow messageShow = new MessageShow(message.nickyName, message.content, message.dateTime.ToString("t"));
+
+            (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Add(messageShow);
+            return message;
+        }
+
     }
 }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Socket_for_Windows
 {
@@ -13,6 +15,9 @@ namespace Socket_for_Windows
 
     class Network
     {
+        public static string DestHost = "";
+        public static string DestPort = "";
+
         public static string localHost = "";
 
         public static void refreshHost()
@@ -29,11 +34,21 @@ namespace Socket_for_Windows
 
     }
 
+    static class ExtensionFunctions
+    {
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
+    }
+
     public struct Address
     {
         public static Address GetRandomPort(List<Address> list = null)
         {
-            if(list == null)
+            if (list == null)
             {
                 list = Network.addressList;
             }
@@ -60,5 +75,26 @@ namespace Socket_for_Windows
             }
         }
         public string Port;
+
+        public Address(string host, string port) : this()
+        {
+            Host = host;
+            Port = port;
+        }
     }
+
+    public struct Message
+    {
+        public string nickyName;
+        public string content;
+        public DateTime dateTime;
+
+        public Message(string nickyName, string content, DateTime dateTime) : this()
+        {
+            this.nickyName = nickyName;
+            this.content = content;
+            this.dateTime = dateTime;
+        }
+    }
+
 }
