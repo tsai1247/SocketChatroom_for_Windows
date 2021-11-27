@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -30,8 +31,9 @@ namespace Socket_for_Windows
         {
             new Thread(() =>
             {
+                Address server_address =  STAGetAddress();
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                server_socket.Connect(new IPEndPoint(IPAddress.Parse(IP.Text), int.Parse(Port.Text)));
+                server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                 new Thread(() =>
                 {
                     SendAndReceive(ref server_socket);
@@ -48,10 +50,40 @@ namespace Socket_for_Windows
                 string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
                 if (count > 0)
                 {
-                    // TODO: show it on screen
+                    try
+                    {
+                        Message message = JsonConvert.DeserializeObject<Message>(ret);
+                        SwitchToSTA_ShowMessage(message);
+                    }
+                    catch
+                    {
+                        SwitchToSTA_ShowMessage(new Message("error", "errorMessage", DateTime.Now));
+                    }
                 }
             }
 
+        }
+        private void SwitchToSTA_ShowMessage(Message message)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Room.AddMessage(message);
+
+                var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
+                Clipboard.SetText(data);
+            }));
+        }
+
+        private Address STAGetAddress()
+        {
+            Address address = new Address("-1", "-1");
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                address.Host = IP.Text;
+                address.Port = Port.Text;
+            }));
+
+            return address;
         }
 
         private void enterRoom_Click(object sender, RoutedEventArgs e)
