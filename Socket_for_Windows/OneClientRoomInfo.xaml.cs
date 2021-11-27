@@ -27,11 +27,12 @@ namespace Socket_for_Windows
             UserControl_Loaded();
         }
 
+        Address server_address;
         private void UserControl_Loaded()
         {
             new Thread(() =>
             {
-                Address server_address =  STAGetAddress();
+                server_address =  STAGetAddress();
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                 new Thread(() =>
@@ -68,7 +69,7 @@ namespace Socket_for_Windows
             this.Dispatcher.Invoke((Action)(() =>
             {
                 Room.AddMessage(message);
-
+                General.roomStorage[server_address].Add(message);
                 var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
                 Clipboard.SetText(data);
             }));
@@ -88,7 +89,8 @@ namespace Socket_for_Windows
 
         private void enterRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            Room.ClearRoom();
+            Room.RestoreRoom(server_address);
         }
     }
 }

@@ -100,6 +100,7 @@ namespace Socket_for_Windows
 
     public class General
     {
+        public static Dictionary<Address, List<Message>> roomStorage = new Dictionary<Address, List<Message>>();
         public static MainWindow GetMainWindow()
         {
             return (Application.Current.MainWindow as MainWindow);

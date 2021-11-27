@@ -22,7 +22,6 @@ namespace Socket_for_Windows
 
         }
 
-       
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
@@ -35,6 +34,7 @@ namespace Socket_for_Windows
             OneRoomInfo oneRoomInfo = new OneRoomInfo(address);
             roomList.Children.Add(oneRoomInfo);
             Network.addressList.Add(address);
+            General.roomStorage.Add(address, new List<Message>());
         }
     }
 }

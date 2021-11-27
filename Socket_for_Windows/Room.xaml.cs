@@ -33,10 +33,22 @@ namespace Socket_for_Windows
         internal static Message AddMessage(Message message)
         {
             MessageShow messageShow = new MessageShow(message.nickyName, message.content, message.dateTime.ToString("t"));
-
             (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Add(messageShow);
             return message;
         }
+        internal static void ClearRoom()
+        {
+            while ((Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Count > 0)
+                (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.RemoveAt(0);
+        }
+        internal static void RestoreRoom(Address address)
+        {
+            foreach(var message in General.roomStorage[address])
+            {
+                AddMessage(message);
+            }
+        }
+
 
     }
 }
