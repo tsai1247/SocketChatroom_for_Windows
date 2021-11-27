@@ -30,6 +30,7 @@ namespace Socket_for_Windows
         {
             Address address = new Address(Host.Text, Port.Text);
             OneClientRoomInfo oneClientRoomInfo = new OneClientRoomInfo(address);
+            General.GetMainWindow().chatRoomList.AddNewRoom(address);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

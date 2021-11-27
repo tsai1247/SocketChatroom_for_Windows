@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Socket_for_Windows
@@ -97,5 +98,11 @@ namespace Socket_for_Windows
         }
     }
 
-
+    public class General
+    {
+        public static MainWindow GetMainWindow()
+        {
+            return (Application.Current.MainWindow as MainWindow);
+        }
+    }
 }

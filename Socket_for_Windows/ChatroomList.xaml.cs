@@ -27,7 +27,11 @@ namespace Socket_for_Windows
         private void add_Click(object sender, RoutedEventArgs e)
         {
             Address address = Address.GetRandomPort();
+            AddNewRoom(address);
+        }
 
+        internal void AddNewRoom(Address address)
+        {
             OneRoomInfo oneRoomInfo = new OneRoomInfo(address);
             roomList.Children.Add(oneRoomInfo);
             Network.addressList.Add(address);
