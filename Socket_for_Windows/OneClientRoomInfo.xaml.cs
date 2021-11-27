@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -33,6 +34,8 @@ namespace Socket_for_Windows
             new Thread(() =>
             {
                 server_address =  STAGetAddress();
+
+                General.roomStorage.Add(server_address, new List<Message>());
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                 new Thread(() =>

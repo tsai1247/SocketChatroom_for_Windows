@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -25,17 +26,16 @@ namespace Socket_for_Windows
             IP.Text = address.Host;
             Port.Text = address.Port;
         }
-        static Address targetAddress;
+        Address targetAddress;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Socket socket_server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress iPAddress = IPAddress.Parse(IP.Text);
             int port = int.Parse(Port.Text);
-            targetAddress = new Address(IP.Text, Port.Text);
 
             socket_server.Bind(new IPEndPoint(iPAddress, port));
 
-            int maxClient = 100;
+            int maxClient = 1;
             socket_server.Listen(maxClient);
 
             new Thread(() =>
@@ -43,10 +43,14 @@ namespace Socket_for_Windows
                 for (int i = 0; i < maxClient; i++)
                 {
                     Socket clientSocket = socket_server.Accept();
-                    //Num.Text = (int.Parse(Num.Text) + 1).ToString();
+                    targetAddress = new Address(
+                        (clientSocket.RemoteEndPoint as IPEndPoint).Address.ToString(),
+                        (clientSocket.RemoteEndPoint as IPEndPoint).Port.ToString()
+                    );
+
+                    General.roomStorage.Add(targetAddress, new List<Message>());
                     new Thread(() => {
-                        var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
-                        SwitchToSTA_ShowMessage(new Message("link succeed", data, DateTime.Now));
+                        SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
                         SendAndReceive(ref clientSocket);
                     }).Start();
                 }
@@ -79,13 +83,13 @@ namespace Socket_for_Windows
 
         private void SwitchToSTA_ShowMessage(Message message)
         {
-            this.Dispatcher.Invoke((Action)(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 Room.AddMessage(message);
                 General.roomStorage[targetAddress].Add(message);
                 var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
                 Clipboard.SetText(data);
-            }));
+            });
         }
 
         private void enterRoom_Click(object sender, RoutedEventArgs e)

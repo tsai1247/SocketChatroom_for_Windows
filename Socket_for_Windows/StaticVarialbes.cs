@@ -23,12 +23,20 @@ namespace Socket_for_Windows
 
         public static void refreshHost()
         {
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            try
             {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                localHost = endPoint.Address.ToString();
-                socket.Close();
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    localHost = endPoint.Address.ToString();
+                    socket.Close();
+                }
+            }
+            catch
+            {
+                localHost = "未連接網路";
+                localHost = "192.168.56.1";
             }
         }
         public static List<Address> addressList = new List<Address>();
