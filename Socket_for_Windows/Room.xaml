@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Socket_for_Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -13,6 +14,7 @@
         </Grid.RowDefinitions>
 
         <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0">
+            <local:MessageShow x:Name="tmp"/>
         </WrapPanel>
 
         <Grid x:Name="SendGrid" Grid.Row="1">

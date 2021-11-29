@@ -10,9 +10,6 @@ using System.Windows.Controls;
 
 namespace Socket_for_Windows
 {
-    /// <summary>
-    /// OneRoomInfo.xaml 的互動邏輯
-    /// </summary>
     public partial class OneClientRoomInfo : UserControl
     {
         public OneClientRoomInfo()
@@ -34,7 +31,7 @@ namespace Socket_for_Windows
             new Thread(() =>
             {
                 server_address =  STAGetAddress();
-
+                General.clientRoom.Add(server_address, this);
                 General.roomStorage.Add(server_address, new List<Message>());
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 Address local_address = Address.GetRandomPort();
@@ -42,12 +39,27 @@ namespace Socket_for_Windows
                 server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                 new Thread(() =>
                 {
-                    SendAndReceive(ref server_socket);
+                    Send(ref server_socket);
+                }).Start();
+
+                new Thread(() =>
+                {
+                    Receive(ref server_socket);
                 }).Start();
             }).Start();
         }
 
-        private void SendAndReceive(ref Socket server_socket)
+        public Queue<Message> messageQueue = new Queue<Message>();
+        private void Send(ref Socket server_socket)
+        {
+            while (true)
+            {
+                if (messageQueue.Count == 0) continue;
+                var message = messageQueue.Dequeue();
+                server_socket.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message)));
+            }
+        }
+        private void Receive(ref Socket server_socket)
         {
             while (true)
             {

@@ -20,5 +20,10 @@ namespace Socket_for_Windows
             content.Text = curText;
             timestamp.Text = curTime;
         }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

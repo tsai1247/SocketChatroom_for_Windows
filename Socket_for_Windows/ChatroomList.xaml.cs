@@ -29,10 +29,17 @@ namespace Socket_for_Windows
             AddNewRoom(address);
         }
 
-        internal void AddNewRoom(Address address)
+        internal void AddNewRoom(Address address, OneClientRoomInfo oneClientRoomInfo = null)
         {
-            OneRoomInfo oneRoomInfo = new OneRoomInfo(address);
-            roomList.Children.Add(oneRoomInfo);
+            if (oneClientRoomInfo == null)
+            {
+                OneRoomInfo oneRoomInfo = new OneRoomInfo(address);
+                roomList.Children.Add(oneRoomInfo);
+            }
+            else
+            {
+                roomList.Children.Add(oneClientRoomInfo);
+            }
             Network.addressList.Add(address);
         }
     }

@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Socket_for_Windows"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        WindowState="Maximized"
+        
         Loaded="Window_Loaded">
+    <!--WindowState="Maximized"-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="370"/>

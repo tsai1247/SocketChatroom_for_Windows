@@ -17,19 +17,38 @@ namespace Socket_for_Windows
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            tmp.content.Text = "aaaa\nbbbb\ncccc\ndddd\neeee\nffff";
+            currentAddress.Host = null;
+            currentAddress.Port = null;
 
         }
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
+            if (currentAddress.Host == null) return;
+
             string curText = text_for_send.Text;
             if (curText.Replace(" ", "").Replace("\n", "").Replace("\r", "").Replace("\t", "") == "") return;
             text_for_send.Text = "";
-            
-            AddMessage( new Message( User.NickyName, curText, DateTime.Now));
+
+            Message currentMessage = new Message(User.NickyName, curText, DateTime.Now);
+            SendMessage(currentMessage);
+            AddMessage(currentMessage);
             
         }
 
+        internal static Message SendMessage(Message message)
+        {
+            if(General.serverRoom.ContainsKey(currentAddress))
+            {
+                //General.serverRoom[currentAddress].queue
+            }
+            else if(General.clientRoom.ContainsKey(currentAddress))
+            {
+                General.clientRoom[currentAddress].messageQueue.Enqueue(message);
+            }
+            return message;
+        }
 
         internal static Message AddMessage(Message message)
         {

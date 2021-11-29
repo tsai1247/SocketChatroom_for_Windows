@@ -48,6 +48,7 @@ namespace Socket_for_Windows
                         (clientSocket.RemoteEndPoint as IPEndPoint).Port.ToString()
                     );
 
+                    General.serverRoom.Add(targetAddress, this);
                     General.roomStorage.Add(targetAddress, new List<Message>());
                     new Thread(() => {
                         SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
