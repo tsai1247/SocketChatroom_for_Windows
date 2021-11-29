@@ -17,10 +17,8 @@ namespace Socket_for_Windows
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tmp.content.Text = "aaaa\nbbbb\ncccc\ndddd\neeee\nffff";
             currentAddress.Host = null;
             currentAddress.Port = null;
-
         }
 
         private void Send_Click(object sender, RoutedEventArgs e)
@@ -47,12 +45,14 @@ namespace Socket_for_Windows
             {
                 General.clientRoom[currentAddress].messageQueue.Enqueue(message);
             }
+            General.roomStorage[currentAddress].Add(message);
             return message;
         }
 
         internal static Message AddMessage(Message message)
         {
             MessageShow messageShow = new MessageShow(message.nickyName, message.content, message.dateTime.ToString("t"));
+            
             (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Add(messageShow);
             return message;
         }
@@ -66,9 +66,9 @@ namespace Socket_for_Windows
             currentAddress = address;
             if (General.roomStorage.ContainsKey(currentAddress))
             {
-                foreach (var message in General.roomStorage[currentAddress])
+                for(int i=0; i<General.roomStorage[currentAddress].Count; i++)
                 {
-                    AddMessage(message);
+                        AddMessage(General.roomStorage[currentAddress][i]);
                 }
             }
         }

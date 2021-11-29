@@ -14,7 +14,6 @@
         </Grid.RowDefinitions>
 
         <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0">
-            <local:MessageShow x:Name="tmp"/>
         </WrapPanel>
 
         <Grid x:Name="SendGrid" Grid.Row="1">
