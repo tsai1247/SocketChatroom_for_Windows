@@ -52,7 +52,11 @@ namespace Socket_for_Windows
                     General.roomStorage.Add(targetAddress, new List<Message>());
                     new Thread(() => {
                         SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
-                        SendAndReceive(ref clientSocket);
+                        Send(ref clientSocket);
+                    }).Start();
+                    new Thread(() => {
+                        SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
+                        Receive(ref clientSocket);
                     }).Start();
                 }
             }).Start();
@@ -60,7 +64,18 @@ namespace Socket_for_Windows
 
         }
 
-        private void SendAndReceive(ref Socket clientSocket)
+        public Queue<Message> messageQueue = new Queue<Message>();
+        private void Send(ref Socket clientSocket)
+        {
+            while (true)
+            {
+                if (messageQueue.Count == 0) continue;
+                var message = messageQueue.Dequeue();
+                clientSocket.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message)));
+            }
+        }
+
+        private void Receive(ref Socket clientSocket)
         {
             while (true)
             {

@@ -41,7 +41,7 @@ namespace Socket_for_Windows
         {
             if(General.serverRoom.ContainsKey(currentAddress))
             {
-                //General.serverRoom[currentAddress].queue
+                General.serverRoom[currentAddress].messageQueue.Enqueue(message);
             }
             else if(General.clientRoom.ContainsKey(currentAddress))
             {
@@ -64,9 +64,12 @@ namespace Socket_for_Windows
         internal static void RestoreRoom(Address address)
         {
             currentAddress = address;
-            foreach(var message in General.roomStorage[currentAddress])
+            if (General.roomStorage.ContainsKey(currentAddress))
             {
-                AddMessage(message);
+                foreach (var message in General.roomStorage[currentAddress])
+                {
+                    AddMessage(message);
+                }
             }
         }
 
