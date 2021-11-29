@@ -83,10 +83,13 @@ namespace Socket_for_Windows
 
         private void SwitchToSTA_ShowMessage(Message message)
         {
+            General.roomStorage[targetAddress].Add(message);
+            if (targetAddress != Room.currentAddress)
+                return;
+
             this.Dispatcher.Invoke(() =>
             {
                 Room.AddMessage(message);
-                General.roomStorage[targetAddress].Add(message);
                 var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
                 Clipboard.SetText(data);
             });

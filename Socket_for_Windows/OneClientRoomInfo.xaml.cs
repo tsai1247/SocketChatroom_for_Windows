@@ -37,6 +37,8 @@ namespace Socket_for_Windows
 
                 General.roomStorage.Add(server_address, new List<Message>());
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Address local_address = Address.GetRandomPort();
+                server_socket.Bind(Network.ToIPEndPoint(local_address));
                 server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                 new Thread(() =>
                 {
@@ -69,10 +71,13 @@ namespace Socket_for_Windows
         }
         private void SwitchToSTA_ShowMessage(Message message)
         {
+            General.roomStorage[server_address].Add(message);
+            if (server_address != Room.currentAddress)
+                return;
+
             this.Dispatcher.Invoke((Action)(() =>
             {
-                Room.AddMessage(message);
-                General.roomStorage[server_address].Add(message);
+                Room.AddMessage(message);;
                 var data = JsonConvert.SerializeObject(new Message("name", "content", DateTime.Now));
                 Clipboard.SetText(data);
             }));

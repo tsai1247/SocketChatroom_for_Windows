@@ -41,6 +41,10 @@ namespace Socket_for_Windows
         }
         public static List<Address> addressList = new List<Address>();
 
+        internal static IPEndPoint ToIPEndPoint(Address address)
+        {
+            return new IPEndPoint(IPAddress.Parse(address.Host), int.Parse(address.Port));
+        }
     }
 
     static class ExtensionFunctions
@@ -89,6 +93,14 @@ namespace Socket_for_Windows
         {
             Host = host;
             Port = port;
+        }
+        public static bool operator ==(Address c1, Address c2)
+        {
+            return c1.Host == c2.Host && c1.Port == c2.Port;
+        }
+        public static bool operator !=(Address c1, Address c2)
+        {
+            return !(c1 == c2);
         }
     }
 

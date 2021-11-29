@@ -9,6 +9,7 @@ namespace Socket_for_Windows
     /// </summary>
     public partial class Room : UserControl
     {
+        internal static Address currentAddress;
         public Room()
         {
             InitializeComponent();
@@ -43,7 +44,8 @@ namespace Socket_for_Windows
         }
         internal static void RestoreRoom(Address address)
         {
-            foreach(var message in General.roomStorage[address])
+            currentAddress = address;
+            foreach(var message in General.roomStorage[currentAddress])
             {
                 AddMessage(message);
             }

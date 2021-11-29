@@ -8,7 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
     <Grid Width="300" Height="125" Background="Red" Margin="10">
-        <Button x:Name="enterRoom" Background="Red" Click="enterRoom_Click"/>
         <Grid x:Name="DataGrid" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -35,5 +34,6 @@
             <TextBlock x:Name="Num" Text="0" FontSize="25"
                        Grid.Column="1" Grid.Row="2"/>
         </Grid>
+        <Button x:Name="enterRoom" Opacity="0" Click="enterRoom_Click"/>
     </Grid>
 </UserControl>
