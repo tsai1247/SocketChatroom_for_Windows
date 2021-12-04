@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="text_for_send" Text="aaa" FontSize="25" Grid.Column="0"
+            <TextBox x:Name="text_for_send" Text="" FontSize="25" Grid.Column="0"
                 Height="Auto"
                 TextWrapping="Wrap" AcceptsReturn="True"/>
             <Button x:Name="Send" Content="Send" FontSize="22" Grid.Column="1"

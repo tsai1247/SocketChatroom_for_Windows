@@ -51,11 +51,9 @@ namespace Socket_for_Windows
                     General.serverRoom.Add(targetAddress, this);
                     General.roomStorage.Add(targetAddress, new List<Message>());
                     new Thread(() => {
-                        SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
                         Send(ref clientSocket);
                     }).Start();
                     new Thread(() => {
-                        SwitchToSTA_ShowMessage(new Message("name", new Random().Next(1, 10000).ToString(), DateTime.Now));
                         Receive(ref clientSocket);
                     }).Start();
                 }
