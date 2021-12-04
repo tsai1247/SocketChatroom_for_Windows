@@ -13,7 +13,9 @@
             <RowDefinition MinHeight="50" MaxHeight="150"/>
         </Grid.RowDefinitions>
 
-        <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0">
+
+        <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0"
+            Margin="20">
         </WrapPanel>
 
         <Grid x:Name="SendGrid" Grid.Row="1">
