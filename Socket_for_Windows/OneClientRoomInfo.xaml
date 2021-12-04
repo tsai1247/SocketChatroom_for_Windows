@@ -28,7 +28,7 @@
             <TextBlock x:Name="Port" Text="0000" FontSize="25"
                        Grid.Column="1" Grid.Row="1"/>
 
-            <TextBlock x:Name="script_Num" Text="人數: " FontSize="25"
+            <TextBlock x:Name="script_Num" Text="To: " FontSize="25"
                        Grid.Column="0" Grid.Row="2"/>
             <TextBlock x:Name="Num" Text="0" FontSize="25"
                        Grid.Column="1" Grid.Row="2"/>

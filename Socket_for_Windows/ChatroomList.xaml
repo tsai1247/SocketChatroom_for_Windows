@@ -11,11 +11,19 @@
         <WrapPanel x:Name="roomList" Orientation="Vertical">
             
         </WrapPanel>
-        <Button x:Name="add" Click="add_Click"
+
+        <DockPanel Height="80" VerticalAlignment="Bottom">
+            <TextBlock Text="Name: " DockPanel.Dock="Left" Margin="20"
+                FontSize="25" VerticalAlignment="Center" Foreground="White"/>
+            <Button x:Name="add" Click="add_Click"
                 Content="+" FontSize="30"
                 Width="40" Height="40"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
+                DockPanel.Dock="Right"
                 Margin="20"/>
+
+            <TextBox x:Name="nickyName" FontSize="25" VerticalContentAlignment="Center" Height ="40"/>
+
+        </DockPanel>
+        
     </Grid>
 </UserControl>

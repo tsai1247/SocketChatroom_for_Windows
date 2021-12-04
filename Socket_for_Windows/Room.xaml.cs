@@ -29,7 +29,7 @@ namespace Socket_for_Windows
             if (curText.Replace(" ", "").Replace("\n", "").Replace("\r", "").Replace("\t", "") == "") return;
             text_for_send.Text = "";
 
-            Message currentMessage = new Message(User.NickyName, curText, DateTime.Now);
+            Message currentMessage = new Message(General.GetMainWindow().chatRoomList.nickyName.Text, curText, DateTime.Now);
             SendMessage(currentMessage);
             AddMessage(currentMessage);
             

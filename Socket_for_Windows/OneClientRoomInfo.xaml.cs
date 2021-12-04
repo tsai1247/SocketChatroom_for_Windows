@@ -37,6 +37,13 @@ namespace Socket_for_Windows
                 Address local_address = Address.GetRandomPort();
                 server_socket.Bind(Network.ToIPEndPoint(local_address));
                 server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
+
+                string nickyName = "";
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
+                }));
+                server_socket.Send(Encoding.ASCII.GetBytes(nickyName));
                 new Thread(() =>
                 {
                     Send(ref server_socket);
@@ -59,13 +66,25 @@ namespace Socket_for_Windows
                 server_socket.Send(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message)));
             }
         }
+
         private void Receive(ref Socket server_socket)
         {
+            byte[] strbyte = new byte[1024];
+            int count = server_socket.Receive(strbyte);
+            string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
+            if (count > 0)
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Num.Text = ret;
+                }));
+            }
+
             while (true)
             {
-                byte[] strbyte = new byte[1024];
-                int count = server_socket.Receive(strbyte);
-                string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
+                strbyte = new byte[1024];
+                count = server_socket.Receive(strbyte);
+                ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
                 if (count > 0)
                 {
                     try

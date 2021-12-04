@@ -50,6 +50,13 @@ namespace Socket_for_Windows
 
                     General.serverRoom.Add(targetAddress, this);
                     General.roomStorage.Add(targetAddress, new List<Message>());
+
+                    string nickyName = "";
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
+                    }));
+                    clientSocket.Send(Encoding.ASCII.GetBytes(nickyName));
                     new Thread(() => {
                         Send(ref clientSocket);
                     }).Start();
@@ -75,11 +82,22 @@ namespace Socket_for_Windows
 
         private void Receive(ref Socket clientSocket)
         {
+            byte[] strbyte = new byte[1024];
+            int count = clientSocket.Receive(strbyte);
+            string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
+            if (count > 0)
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Num.Text = ret;
+                }));
+            }
+
             while (true)
             {
-                byte[] strbyte = new byte[1024];
-                int count = clientSocket.Receive(strbyte);
-                string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
+                strbyte = new byte[1024];
+                count = clientSocket.Receive(strbyte);
+                ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
                 if (count > 0)
                 {
                     try
