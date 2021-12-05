@@ -8,6 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
     <Grid Background="Black">
+        <TextBlock Grid.Row="0" x:Name="nickyHint"
+            TextAlignment="Center"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Wheat"
+            Text="請先輸入下方的Name&#x0a;輸入完畢無法更改" FontSize="24"
+            />
+        
         <WrapPanel x:Name="roomList" Orientation="Vertical">
             
         </WrapPanel>
@@ -15,13 +21,13 @@
         <DockPanel Height="80" VerticalAlignment="Bottom">
             <TextBlock Text="Name: " DockPanel.Dock="Left" Margin="20"
                 FontSize="25" VerticalAlignment="Center" Foreground="White"/>
-            <Button x:Name="add" Click="add_Click"
+            <Button x:Name="add" Click="add_Click" IsEnabled="False"
                 Content="+" FontSize="30"
                 Width="40" Height="40"
                 DockPanel.Dock="Right"
                 Margin="20"/>
 
-            <TextBox x:Name="nickyName" FontSize="25" VerticalContentAlignment="Center" Height ="40"/>
+            <TextBox x:Name="nickyName" FontSize="25" VerticalContentAlignment="Center" Height ="40" TextChanged="nickyName_TextChanged"/>
 
         </DockPanel>
         

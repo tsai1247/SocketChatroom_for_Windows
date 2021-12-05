@@ -20,6 +20,7 @@ namespace Socket_for_Windows
             if (General.clientRoom.ContainsKey(address)) return;
             OneClientRoomInfo oneClientRoomInfo = new OneClientRoomInfo(address);
             General.GetMainWindow().chatRoomList.AddNewRoom(address, oneClientRoomInfo);
+            General.GetMainWindow().chatRoomList.nickyName.IsEnabled = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

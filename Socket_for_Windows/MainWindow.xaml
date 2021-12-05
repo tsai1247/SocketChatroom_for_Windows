@@ -19,7 +19,7 @@
                 <RowDefinition Height="150"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <local:JoinRoom Grid.Row="0"/>
+            <local:JoinRoom x:Name="joinGird" Grid.Row="0"/>
             <local:ChatroomList  x:Name="chatRoomList" Grid.Row="1"/>
         </Grid>
         <local:Room x:Name="Room" Grid.Column="1"/>

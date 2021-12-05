@@ -27,6 +27,7 @@ namespace Socket_for_Windows
         {
             Address address = Address.GetRandomPort();
             AddNewRoom(address);
+            nickyName.IsEnabled = false;
         }
 
         internal void AddNewRoom(Address address, OneClientRoomInfo oneClientRoomInfo = null)
@@ -41,6 +42,22 @@ namespace Socket_for_Windows
                 roomList.Children.Add(oneClientRoomInfo);
             }
             Network.addressList.Add(address);
+        }
+
+        private void nickyName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (nickyName != null && nickyName.Text != null && nickyName.Text != "")
+            {
+                add.IsEnabled = true;
+                General.GetMainWindow().joinGird.Join.IsEnabled = true;
+                nickyHint.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                add.IsEnabled = false;
+                General.GetMainWindow().joinGird.Join.IsEnabled = false;
+                nickyHint.Visibility = Visibility.Visible;
+            }
         }
     }
 }
