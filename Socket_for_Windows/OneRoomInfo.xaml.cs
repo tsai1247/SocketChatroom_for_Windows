@@ -57,11 +57,17 @@ namespace Socket_for_Windows
                         (clientSocket.RemoteEndPoint as IPEndPoint).Port.ToString()
                     );
 
+
                     General.serverRoom.Add(targetAddress, this);
                     General.roomStorage.Add(targetAddress, new List<Message>());
                     string nickyName = "";
                     this.Dispatcher.Invoke((Action)(() =>
                     {
+                        if (this == Room.currentRoom)
+                        {
+                            General.GetMainWindow().Room.chooseHint.Text = "";
+                            General.GetMainWindow().Room.Send.IsEnabled = true;
+                        }
                         nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
                     }));
                     clientSocket.Send(Encoding.ASCII.GetBytes("Name " + nickyName));
@@ -98,6 +104,10 @@ namespace Socket_for_Windows
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     Num.Text = newMember;
+                    if (member == null)
+                        member = newMember;
+                    else
+                        member += "," + newMember;
                 }));
                 if (!General.members.ContainsKey(targetAddress))
                     General.members.Add(targetAddress, new List<string>());
@@ -134,6 +144,7 @@ namespace Socket_for_Windows
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     Num.Text = "Null";
+                    member = null;
                 }));
                 clientSocket = null;
             }
@@ -154,10 +165,21 @@ namespace Socket_for_Windows
             });
         }
 
+        public string member = null;
         private void enterRoom_Click(object sender, RoutedEventArgs e)
         {
             Room.ClearRoom();
-            Room.RestoreRoom(targetAddress);
+            Room.RestoreRoom(this, targetAddress);
+            if (member == null)
+            {
+                General.GetMainWindow().Room.chooseHint.Text = "等待連線中...";
+                General.GetMainWindow().Room.Send.IsEnabled = false;
+            }
+            else
+            {
+                General.GetMainWindow().Room.chooseHint.Visibility = Visibility.Hidden;
+                General.GetMainWindow().Room.Send.IsEnabled = true;
+            }
         }
     }
 }

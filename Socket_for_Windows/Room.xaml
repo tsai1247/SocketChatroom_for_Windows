@@ -18,7 +18,12 @@
                 Margin="20">
             </StackPanel>
         </ScrollViewer>
-        
+
+        <TextBlock Grid.Row="0" x:Name="chooseHint"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Text="請選擇一個聊天室" FontSize="30"
+            />
+
         <Grid x:Name="SendGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -29,7 +34,8 @@
                 Height="Auto"
                 TextWrapping="Wrap" AcceptsReturn="True"/>
             <Button x:Name="Send" Content="Send" FontSize="22" Grid.Column="1"
-                Width="70" Height="70" Margin="10" Click="Send_Click"/>
+                Width="70" Height="70" Margin="10" Click="Send_Click"
+                IsEnabled="False"/>
         </Grid>
     </Grid>
 </UserControl>

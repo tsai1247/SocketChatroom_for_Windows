@@ -58,6 +58,11 @@ namespace Socket_for_Windows
                 string nickyName = "";
                 this.Dispatcher.Invoke((Action)(() =>
                 {
+                    if (this == Room.currentRoom)
+                    {
+                        General.GetMainWindow().Room.chooseHint.Text = "";
+                        General.GetMainWindow().Room.Send.IsEnabled = true;
+                    }
                     nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
                 }));
                 server_socket.Send(Encoding.ASCII.GetBytes("Name " + nickyName));
@@ -95,6 +100,10 @@ namespace Socket_for_Windows
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     Num.Text = newMember;
+                    if (member == null)
+                        member = newMember;
+                    else
+                        member += "," + newMember;
                 }));
                 if (!General.members.ContainsKey(server_address))
                     General.members.Add(server_address, new List<string>());
@@ -131,6 +140,7 @@ namespace Socket_for_Windows
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     Num.Text = "Null";
+                    member = null;
                 }));
                 server_socket = null;
             }
@@ -163,10 +173,22 @@ namespace Socket_for_Windows
             return address;
         }
 
+        public string member = null;
         private void enterRoom_Click(object sender, RoutedEventArgs e)
         {
             Room.ClearRoom();
-            Room.RestoreRoom(server_address);
+            Room.RestoreRoom(this, server_address);
+
+            if (member == null)
+            {
+                General.GetMainWindow().Room.chooseHint.Text = "等待連線中...";
+                General.GetMainWindow().Room.Send.IsEnabled = false;
+            }
+            else
+            {
+                General.GetMainWindow().Room.chooseHint.Visibility = Visibility.Hidden;
+                General.GetMainWindow().Room.Send.IsEnabled = true;
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Socket_for_Windows
     public partial class Room : UserControl
     {
         internal static Address currentAddress;
+        internal static object currentRoom;
         public Room()
         {
             InitializeComponent();
@@ -71,8 +72,11 @@ namespace Socket_for_Windows
             while ((Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Count > 0)
                 (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.RemoveAt(0);
         }
-        internal static void RestoreRoom(Address address)
+
+        
+        internal static void RestoreRoom(object room, Address address)
         {
+            currentRoom = room;
             currentAddress = address;
             if (General.roomStorage.ContainsKey(currentAddress))
             {
