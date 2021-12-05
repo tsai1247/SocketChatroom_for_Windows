@@ -31,7 +31,7 @@
 
             <TextBlock x:Name="script_Num" Text="To: " FontSize="25"
                        Grid.Column="0" Grid.Row="2"/>
-            <TextBlock x:Name="Num" Text="0" FontSize="25"
+            <TextBlock x:Name="Num" Text="NULL" FontSize="25"
                        Grid.Column="1" Grid.Row="2"/>
         </Grid>
         <Button x:Name="enterRoom" Opacity="0" Click="enterRoom_Click"/>

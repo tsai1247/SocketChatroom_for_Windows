@@ -91,10 +91,14 @@ namespace Socket_for_Windows
             string ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
             if (count > 0)
             {
+                string newMember = ret.Split(" ")[1];
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Num.Text = ret.Split(" ")[1];
+                    Num.Text = newMember;
                 }));
+                if (!General.members.ContainsKey(server_address))
+                    General.members.Add(server_address, new List<string>());
+                General.members[server_address].Add(newMember);
             }
 
             while (!General.isClosing)
@@ -122,11 +126,15 @@ namespace Socket_for_Windows
                     }
                 }
             }
-            this.Dispatcher.Invoke((Action)(() =>
+            try
             {
-                Num.Text = "Null";
-            }));
-            server_socket = null;
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Num.Text = "Null";
+                }));
+                server_socket = null;
+            }
+            catch { }
 
         }
         private void SwitchToSTA_ShowMessage(Message message)

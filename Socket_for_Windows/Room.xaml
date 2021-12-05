@@ -13,11 +13,12 @@
             <RowDefinition MinHeight="50" MaxHeight="150"/>
         </Grid.RowDefinitions>
 
-
-        <WrapPanel x:Name="MessageContainer" Orientation="Vertical" Grid.Row="0"
-            Margin="20">
-        </WrapPanel>
-
+        <ScrollViewer Name="scroll" Grid.Row="0">
+            <StackPanel x:Name="MessageContainer" Orientation="Vertical"
+                Margin="20">
+            </StackPanel>
+        </ScrollViewer>
+        
         <Grid x:Name="SendGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

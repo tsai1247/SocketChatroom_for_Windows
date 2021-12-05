@@ -52,8 +52,18 @@ namespace Socket_for_Windows
         internal static Message AddMessage(Message message)
         {
             MessageShow messageShow = new MessageShow(message.nickyName, message.content, message.dateTime.ToString("t"));
-            
-            (Application.Current.MainWindow as MainWindow).Room.MessageContainer.Children.Add(messageShow);
+            if (General.members[currentAddress].Contains(message.nickyName))
+            {
+                messageShow.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+            else
+            {
+                messageShow.HorizontalAlignment = HorizontalAlignment.Right;
+            }
+
+            General.GetMainWindow().Room.MessageContainer.Children.Add(messageShow);
+            General.GetMainWindow().Room.scroll.ScrollToEnd();
+
             return message;
         }
         internal static void ClearRoom()
