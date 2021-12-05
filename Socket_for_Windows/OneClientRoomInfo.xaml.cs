@@ -43,7 +43,7 @@ namespace Socket_for_Windows
                 {
                     nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
                 }));
-                server_socket.Send(Encoding.ASCII.GetBytes(nickyName));
+                server_socket.Send(Encoding.ASCII.GetBytes("Name " + nickyName));
                 new Thread(() =>
                 {
                     Send(ref server_socket);
@@ -59,7 +59,7 @@ namespace Socket_for_Windows
         public Queue<Message> messageQueue = new Queue<Message>();
         private void Send(ref Socket server_socket)
         {
-            while (true)
+            while (server_socket != null)
             {
                 if (messageQueue.Count == 0) continue;
                 var message = messageQueue.Dequeue();
@@ -76,14 +76,21 @@ namespace Socket_for_Windows
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Num.Text = ret;
+                    Num.Text = ret.Split(" ")[1];
                 }));
             }
 
             while (true)
             {
                 strbyte = new byte[1024];
-                count = server_socket.Receive(strbyte);
+                try
+                {
+                    count = server_socket.Receive(strbyte);
+                }
+                catch
+                {
+                    break;
+                }
                 ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
                 if (count > 0)
                 {
@@ -98,6 +105,11 @@ namespace Socket_for_Windows
                     }
                 }
             }
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Num.Text = "Null";
+            }));
+            server_socket = null;
 
         }
         private void SwitchToSTA_ShowMessage(Message message)

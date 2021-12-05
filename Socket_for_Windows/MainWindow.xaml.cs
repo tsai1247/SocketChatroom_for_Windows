@@ -16,5 +16,10 @@ namespace Socket_for_Windows
         {
             Network.refreshHost();
         }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            General.isClosing = true;
+        }
     }
 }

@@ -123,6 +123,7 @@ namespace Socket_for_Windows
         public static Dictionary<Address, List<Message>> roomStorage = new Dictionary<Address, List<Message>>();
         public static Dictionary<Address, OneClientRoomInfo> clientRoom = new Dictionary<Address, OneClientRoomInfo>();
         public static Dictionary<Address, OneRoomInfo> serverRoom = new Dictionary<Address, OneRoomInfo>();
+        public static bool isClosing = false;
         public static MainWindow GetMainWindow()
         {
             return (Application.Current.MainWindow as MainWindow);

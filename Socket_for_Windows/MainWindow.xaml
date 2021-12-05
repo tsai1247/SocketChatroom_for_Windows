@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Socket_for_Windows"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="800"
-        
+        Closed="Window_Closed"
         Loaded="Window_Loaded">
     <!--WindowState="Maximized"-->
     <Grid>

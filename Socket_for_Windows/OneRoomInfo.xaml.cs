@@ -50,13 +50,12 @@ namespace Socket_for_Windows
 
                     General.serverRoom.Add(targetAddress, this);
                     General.roomStorage.Add(targetAddress, new List<Message>());
-
                     string nickyName = "";
                     this.Dispatcher.Invoke((Action)(() =>
                     {
                         nickyName = General.GetMainWindow().chatRoomList.nickyName.Text;
                     }));
-                    clientSocket.Send(Encoding.ASCII.GetBytes(nickyName));
+                    clientSocket.Send(Encoding.ASCII.GetBytes("Name " + nickyName));
                     new Thread(() => {
                         Send(ref clientSocket);
                     }).Start();
@@ -72,7 +71,7 @@ namespace Socket_for_Windows
         public Queue<Message> messageQueue = new Queue<Message>();
         private void Send(ref Socket clientSocket)
         {
-            while (true)
+            while (clientSocket != null)
             {
                 if (messageQueue.Count == 0) continue;
                 var message = messageQueue.Dequeue();
@@ -89,14 +88,21 @@ namespace Socket_for_Windows
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Num.Text = ret;
+                    Num.Text = ret.Split(" ")[1];
                 }));
             }
 
             while (true)
             {
                 strbyte = new byte[1024];
-                count = clientSocket.Receive(strbyte);
+                try
+                {
+                    count = clientSocket.Receive(strbyte);
+                }
+                catch
+                {
+                    break;
+                }
                 ret = Encoding.UTF8.GetString(strbyte.SubArray(0, count));
                 if (count > 0)
                 {
@@ -111,6 +117,12 @@ namespace Socket_for_Windows
                     }
                 }
             }
+
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Num.Text = "Null";
+            }));
+            clientSocket = null;
         }
 
         private void SwitchToSTA_ShowMessage(Message message)
