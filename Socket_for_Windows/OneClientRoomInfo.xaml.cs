@@ -30,14 +30,26 @@ namespace Socket_for_Windows
         {
             new Thread(() =>
             {
-                server_address =  STAGetAddress();
+                server_address = STAGetAddress();
+                
                 General.clientRoom.Add(server_address, this);
                 General.roomStorage.Add(server_address, new List<Message>());
+
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 Address local_address = Address.GetRandomPort();
                 server_socket.Bind(Network.ToIPEndPoint(local_address));
-                server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
-
+                while (true)
+                {
+                    try
+                    {
+                        server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
+                        break;
+                    }
+                    catch
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
                 string nickyName = "";
                 this.Dispatcher.Invoke((Action)(() =>
                 {
@@ -80,7 +92,7 @@ namespace Socket_for_Windows
                 }));
             }
 
-            while (true)
+            while (!General.isClosing)
             {
                 strbyte = new byte[1024];
                 try

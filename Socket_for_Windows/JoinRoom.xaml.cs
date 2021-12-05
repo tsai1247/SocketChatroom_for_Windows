@@ -16,6 +16,8 @@ namespace Socket_for_Windows
         private void Join_Click(object sender, RoutedEventArgs e)
         {
             Address address = new Address(Host.Text, Port.Text);
+            if (!address.IsValid()) return;
+            if (General.clientRoom.ContainsKey(address)) return;
             OneClientRoomInfo oneClientRoomInfo = new OneClientRoomInfo(address);
             General.GetMainWindow().chatRoomList.AddNewRoom(address, oneClientRoomInfo);
         }

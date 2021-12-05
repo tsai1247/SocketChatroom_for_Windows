@@ -78,6 +78,35 @@ namespace Socket_for_Windows
             return ret;
         }
 
+        internal bool IsValid()
+        {
+            try
+            {
+                int tmpPort = int.Parse(Port);
+                if (tmpPort > 65535 || tmpPort < 1)
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+            var tmpHost = Host.Split(".");
+            if (tmpHost.Length != 4) return false;
+            foreach(var i in tmpHost)
+            {
+                try
+                {
+                    int tmpHostContent = int.Parse(i);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public string Host;
         public string IP
         {
