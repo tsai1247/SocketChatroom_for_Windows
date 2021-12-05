@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              >
-    <Grid Background="Gray">
+    <Grid Background="SlateGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75"/>
             <ColumnDefinition/>

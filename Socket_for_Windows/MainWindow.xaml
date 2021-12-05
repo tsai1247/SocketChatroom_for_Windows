@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="800"
         Closed="Window_Closed"
-        Loaded="Window_Loaded">
-    <!--WindowState="Maximized"-->
+        Loaded="Window_Loaded"
+        WindowState="Maximized" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="370"/>
