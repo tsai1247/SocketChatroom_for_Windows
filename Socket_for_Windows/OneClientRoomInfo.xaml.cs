@@ -38,6 +38,7 @@ namespace Socket_for_Windows
                 Socket server_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 Address local_address = Address.GetRandomPort();
                 server_socket.Bind(Network.ToIPEndPoint(local_address));
+                General.activeSocket.Add(server_socket);
                 while (true)
                 {
                     try
@@ -45,9 +46,13 @@ namespace Socket_for_Windows
                         server_socket.Connect(new IPEndPoint(IPAddress.Parse(server_address.Host), int.Parse(server_address.Port)));
                         break;
                     }
-                    catch
+                    catch(SocketException e)
                     {
                         Thread.Sleep(1000);
+                    }
+                    catch(ObjectDisposedException e)
+                    {
+                        return;
                     }
                 }
                 string nickyName = "";

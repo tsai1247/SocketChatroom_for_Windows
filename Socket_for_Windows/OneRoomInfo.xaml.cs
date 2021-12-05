@@ -40,9 +40,18 @@ namespace Socket_for_Windows
 
             new Thread(() =>
             {
+                General.activeSocket.Add(socket_server);
                 for (int i = 0; i < maxClient; i++)
                 {
-                    Socket clientSocket = socket_server.Accept();
+                    Socket clientSocket;
+                    try
+                    {
+                        clientSocket = socket_server.Accept();
+                    }
+                    catch
+                    {
+                        break;
+                    }
                     targetAddress = new Address(
                         (clientSocket.RemoteEndPoint as IPEndPoint).Address.ToString(),
                         (clientSocket.RemoteEndPoint as IPEndPoint).Port.ToString()
@@ -64,7 +73,6 @@ namespace Socket_for_Windows
                     }).Start();
                 }
             }).Start();
-
 
         }
 

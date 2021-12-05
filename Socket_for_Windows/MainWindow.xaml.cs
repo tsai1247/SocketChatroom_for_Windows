@@ -20,6 +20,14 @@ namespace Socket_for_Windows
         private void Window_Closed(object sender, System.EventArgs e)
         {
             General.isClosing = true;
+            for (int i = 0; i < General.activeSocket.Count; i++)
+            {
+                try
+                {
+                    General.activeSocket[i].Close();
+                }
+                catch { }
+            }
         }
     }
 }
