@@ -119,5 +119,59 @@ namespace Socket_for_Windows
         {
             return (color.R + color.G + color.B) > 255 * 3 / 2 * bias;
         }
+
+        bool isChangingBG2 = false;
+        private void infoColor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isChangingBG2)
+            {
+                isChangingBG2 = true;
+                ColorPicker color = new ColorPicker();
+                color.Width = 60;
+                color.Height = 50;
+                color.FontSize = 25;
+                color.SelectedColor = MyColor.roomInfoColor;
+                color.SelectedColorChanged += Color_SelectedColorChanged2;
+                color.Margin = new Thickness(10);
+                color.VerticalAlignment = VerticalAlignment.Top;
+                mainGrid.Children.Add(color);
+                
+            }
+
+        }
+        private void Color_SelectedColorChanged2(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            Color color = (Color)(sender as ColorPicker).SelectedColor;
+            Brush brush = Transfer.Color2Brush(color);
+
+            if (sender != null)
+                mainGrid.Children.Remove(sender as ColorPicker);
+
+            MyColor.roomInfoColor = color;
+
+            if (sender != null)
+            {
+                SqliteConnection sql = new SqliteConnection("Data Source = Database.db");
+                sql.Open();
+                var cur = sql.CreateCommand();
+                cur.CommandText = "Update Background set Color = @para1 where Name = 'roominfo'";
+                cur.Parameters.AddWithValue("@para1", color);
+                cur.ExecuteNonQuery();
+                sql.Close();
+            }
+
+            for (int i = 0; i < General.allClientRooms.Count; i++)
+            {
+                General.allClientRooms[i].mainGrid.Background = brush;
+            }
+
+            for (int i = 0; i < General.allServerRooms.Count; i++)
+            {
+                General.allServerRooms[i].mainGrid.Background = brush;
+            }
+
+
+            isChangingBG2 = false;
+        }
     }
 }

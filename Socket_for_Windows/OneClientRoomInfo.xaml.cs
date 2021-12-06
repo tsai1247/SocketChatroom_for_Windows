@@ -28,6 +28,9 @@ namespace Socket_for_Windows
         Address server_address;
         private void UserControl_Loaded()
         {
+            General.allClientRooms.Add(this);
+            mainGrid.Background = Transfer.Color2Brush(MyColor.roomInfoColor);
+
             new Thread(() =>
             {
                 server_address = STAGetAddress();

@@ -45,6 +45,12 @@ namespace Socket_for_Windows
                             joinGird.ChangeColor(null, Transfer.String2Color(reader[1]));
                         }
                         break;
+                    case "roominfo":
+                        if (reader[1] != System.DBNull.Value)
+                            MyColor.roomInfoColor = Transfer.String2Color(reader[1]);
+                        else
+                            MyColor.roomInfoColor = Transfer.String2Color("##FFFFFFFF");
+                        break;
                 }
             }
             cur.Cancel();

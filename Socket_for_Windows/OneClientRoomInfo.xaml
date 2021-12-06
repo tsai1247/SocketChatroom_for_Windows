@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Socket_for_Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="300" Height="125" Background="LightYellow" Margin="10">
+    <Grid x:Name="mainGrid" Width="300" Height="125" Background="LightYellow" Margin="10">
         <Grid x:Name="DataGrid" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition/>

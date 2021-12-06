@@ -29,6 +29,10 @@ namespace Socket_for_Windows
         Address targetAddress;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            General.allServerRooms.Add(this);
+
+            mainGrid.Background = Transfer.Color2Brush(MyColor.roomInfoColor);
+
             Socket socket_server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress iPAddress = IPAddress.Parse(IP.Text);
             int port = int.Parse(Port.Text);

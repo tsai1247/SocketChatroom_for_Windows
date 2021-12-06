@@ -32,6 +32,9 @@
             <TextBox x:Name="nickyName" FontSize="25" VerticalContentAlignment="Center" Height ="40" TextChanged="nickyName_TextChanged"/>
 
         </DockPanel>
-        
+
+        <Button x:Name="infoColor" Width="10" Height="10" Content="C"
+            HorizontalAlignment="Right" VerticalAlignment="Top" Click="infoColor_Click"/>
+
     </Grid>
 </UserControl>

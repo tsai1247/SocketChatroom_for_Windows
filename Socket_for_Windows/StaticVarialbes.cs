@@ -156,6 +156,8 @@ namespace Socket_for_Windows
         public static Dictionary<Address, OneRoomInfo> serverRoom = new Dictionary<Address, OneRoomInfo>();
         public static Dictionary<Address, List<string>> members = new Dictionary<Address, List<string>>();
         public static List<Socket> activeSocket = new List<Socket>();
+        public static List<OneClientRoomInfo> allClientRooms = new List<OneClientRoomInfo>();
+        public static List<OneRoomInfo> allServerRooms = new List<OneRoomInfo>();
 
         public static bool isClosing = false;
         public static MainWindow GetMainWindow()
@@ -163,6 +165,12 @@ namespace Socket_for_Windows
             return (Application.Current.MainWindow as MainWindow);
         }
     }
+
+    public class MyColor
+    {
+        public static Color roomInfoColor;
+    }
+
 
     public class Transfer
     {
