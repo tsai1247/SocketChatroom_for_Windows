@@ -18,7 +18,7 @@
             <TextBlock x:Name="script_Port" Text="Port:" Margin="10" FontSize="25"/>
         </WrapPanel>
 
-        <Button Grid.RowSpan="2" Opacity="0" x:Name="Background" Click="Background_Click"/>
+        <Button Grid.RowSpan="2" Opacity="0" x:Name="Background" MouseDoubleClick="Background_Click"/>
 
         <WrapPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
             <TextBox x:Name="Host" Width="200" Margin="10" FontSize="25"/>

@@ -14,7 +14,7 @@
             Text="請先輸入下方的Name&#x0a;輸入完畢無法更改" FontSize="24"
             />
 
-        <Button Grid.RowSpan="2" Opacity="0" x:Name="Background" Click="Background_Click"/>
+        <Button Grid.RowSpan="2" Opacity="0" x:Name="Background" MouseDoubleClick="Background_Click"/>
 
         <WrapPanel x:Name="roomList" Orientation="Vertical">
             
