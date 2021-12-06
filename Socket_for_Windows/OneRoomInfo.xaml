@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Loaded="UserControl_Loaded">
-    <Grid Width="300" Height="125" Background="Red" Margin="10">
+    <Grid Width="300" Height="125" Background="LightYellow" Margin="10">
         <Grid x:Name="DataGrid" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition/>

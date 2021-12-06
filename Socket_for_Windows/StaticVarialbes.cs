@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Socket_for_Windows
@@ -160,5 +161,23 @@ namespace Socket_for_Windows
         {
             return (Application.Current.MainWindow as MainWindow);
         }
+    }
+
+    public class Transfer
+    {
+        public static Color Brush2Color(Brush brush)
+        {
+            return ((SolidColorBrush)brush).Color;
+        }
+
+        public static Brush Color2Brush(Color color)
+        {
+            return new SolidColorBrush(color);
+        }
+        public static Brush Color2Brush(Color? color)
+        {
+            return new SolidColorBrush((Color)color);
+        }
+
     }
 }

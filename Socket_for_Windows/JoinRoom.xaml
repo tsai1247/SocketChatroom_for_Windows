@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              >
-    <Grid Background="SlateGray">
+    <Grid Background="SlateGray" x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75"/>
             <ColumnDefinition/>
@@ -17,6 +17,9 @@
             <TextBlock x:Name="script_Host" Text="IP:" Margin="10" FontSize="25"/>
             <TextBlock x:Name="script_Port" Text="Port:" Margin="10" FontSize="25"/>
         </WrapPanel>
+
+        <Button Grid.RowSpan="2" Opacity="0" x:Name="Background" Click="Background_Click"/>
+
         <WrapPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
             <TextBox x:Name="Host" Width="200" Margin="10" FontSize="25"/>
             <TextBox x:Name="Port" Width="200" Margin="10" FontSize="25"/>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Xceed.Wpf.Toolkit;
 
 namespace Socket_for_Windows
 {
@@ -87,7 +89,44 @@ namespace Socket_for_Windows
             }
         }
 
+        bool isChangingBG = false;
+        private void Background_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isChangingBG)
+            {
+                isChangingBG = true;
+                ColorPicker color = new ColorPicker();
+                color.Width = 60;
+                color.Height = 50;
+                color.FontSize = 25;
+                color.SelectedColor = Transfer.Brush2Color(mainGrid.Background);
+                color.SelectedColorChanged += Color_SelectedColorChanged;
+                mainGrid.Children.Add(color);
+            }
+        }
 
+        private void Color_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            Color color = (Color)(sender as ColorPicker).SelectedColor;
+            mainGrid.Background = Transfer.Color2Brush(color);
+            if (IsDark(color))
+            {
+                chooseHint.Foreground = Transfer.Color2Brush(Color.FromRgb(0, 0, 0));
+            }
+            else
+            {
+                chooseHint.Foreground = Transfer.Color2Brush(Color.FromRgb(255, 255, 255));
+            }
+
+            mainGrid.Children.Remove(sender as ColorPicker);
+            isChangingBG = false;
+        }
+
+        float bias = 0.9f;
+        private bool IsDark(Color color)
+        {
+            return (color.R + color.G + color.B) > 255 * 3 / 2 * bias;
+        }
     }
 }
 
