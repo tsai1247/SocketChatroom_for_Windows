@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mono.Data.Sqlite;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -108,6 +109,12 @@ namespace Socket_for_Windows
         private void Color_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             Color color = (Color)(sender as ColorPicker).SelectedColor;
+            ChangeColor(sender, color);
+
+        }
+
+        public void ChangeColor(object sender, Color color)
+        {
             mainGrid.Background = Transfer.Color2Brush(color);
             if (IsDark(color))
             {
@@ -118,8 +125,20 @@ namespace Socket_for_Windows
                 chooseHint.Foreground = Transfer.Color2Brush(Color.FromRgb(255, 255, 255));
             }
 
-            mainGrid.Children.Remove(sender as ColorPicker);
+            if(sender != null)
+                mainGrid.Children.Remove(sender as ColorPicker);
             isChangingBG = false;
+
+            if (sender != null)
+            {
+                SqliteConnection sql = new SqliteConnection("Data Source = Database.db");
+                sql.Open();
+                var cur = sql.CreateCommand();
+                cur.CommandText = "Update Background set Color = @para1 where Name = 'room'";
+                cur.Parameters.AddWithValue("@para1", color);
+                cur.ExecuteNonQuery();
+                sql.Close();
+            }
         }
 
         float bias = 0.9f;
