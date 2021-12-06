@@ -14,6 +14,10 @@ namespace Socket_for_Windows
         public JoinRoom()
         {
             InitializeComponent();
+
+#if DEBUG
+            Join.IsEnabled = true;
+#endif
         }
         
         private void Join_Click(object sender, RoutedEventArgs e)

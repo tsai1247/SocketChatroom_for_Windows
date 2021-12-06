@@ -33,7 +33,7 @@
 
         </DockPanel>
 
-        <Button x:Name="infoColor" Width="10" Height="10" Content="C"
+        <Button x:Name="infoColor" Width="25" Height="25" Content="C"
             HorizontalAlignment="Right" VerticalAlignment="Top" Click="infoColor_Click"/>
 
     </Grid>
