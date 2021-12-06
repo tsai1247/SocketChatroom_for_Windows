@@ -98,9 +98,11 @@ namespace Socket_for_Windows
                 nickyHint.Foreground = Transfer.Color2Brush(Color.FromRgb(255, 255, 255));
             }
 
+#if !DEBUG
             if (sender != null)
                 mainGrid.Children.Remove(sender as ColorPicker);
             isChangingBG = false;
+#endif
 
             if (sender != null)
             {
@@ -144,9 +146,12 @@ namespace Socket_for_Windows
             Color color = (Color)(sender as ColorPicker).SelectedColor;
             Brush brush = Transfer.Color2Brush(color);
 
+#if !DEBUG
             if (sender != null)
                 mainGrid.Children.Remove(sender as ColorPicker);
-
+                
+            isChangingBG2 = false;
+#endif
             MyColor.roomInfoColor = color;
 
             if (sender != null)
@@ -171,7 +176,6 @@ namespace Socket_for_Windows
             }
 
 
-            isChangingBG2 = false;
         }
     }
 }

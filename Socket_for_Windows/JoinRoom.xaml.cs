@@ -71,9 +71,12 @@ namespace Socket_for_Windows
                 script_Port.Foreground = Transfer.Color2Brush(Color.FromRgb(255, 255, 255));
             }
 
+#if !DEBUG
             if (sender != null)
                 mainGrid.Children.Remove(sender as ColorPicker);
+            
             isChangingBG = false;
+#endif
 
 
             if (sender != null)
